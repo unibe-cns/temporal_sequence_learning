@@ -24,7 +24,10 @@ Each experiment is configured using a makefile which specifies
 - experiment parameters (e.g. network size, pattern, disruptions, ...)
 - location where simulation data is saved
 - what variables are recorded
+
 and compiles a binary of the code with this parametrization.
+Additionally, the makefile copies itself, the default parameterization as well as the used target pattern file into the location that the code will save the simulation data.
+This is done for reproducibility, such that for every set of produced simulation recordings the corresponding parameterization is stored alongside it.
 
 Example:
 ```
