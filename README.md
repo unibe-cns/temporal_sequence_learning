@@ -1,6 +1,7 @@
-## Temporal sequence learning
 
-This code contains the simulation code for the paper **"ELiSe: Efficient Learning of Sequences in Structured Recurrent Networks"** ([arxiv](https://arxiv.org/abs/2402.16763)) by Kristin Völk, Laura Kriener, Ben von Hünerbein, Federico Benitez, Walter Senn and Mihai A. Petrovici.
+**Work in progress, code will be fully uploaded in the coming days**
+
+This code contains the simulation code for the paper *"ELiSe: Efficient Learning of Sequences in Structured Recurrent Networks"* ([arxiv](https://arxiv.org/abs/2402.16763)) by Kristin Völk, Laura Kriener, Ben von Hünerbein, Federico Benitez, Walter Senn and Mihai A. Petrovici.
 
 This code base was originally developed by Kristin Völk and then extended and adapted by the other authors.
 
