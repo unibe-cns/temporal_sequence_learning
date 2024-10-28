@@ -1,0 +1,1 @@
+t_start: 900 t_end: 1500 nrn_start: 0 nrn_end: 13 offset_el: 0
