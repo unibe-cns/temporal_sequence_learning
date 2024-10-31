@@ -1,6 +1,3 @@
-
-**Work in progress, code will be fully uploaded in the coming days**
-
 This code contains the simulation code for the paper *"ELiSe: Efficient Learning of Sequences in Structured Recurrent Networks"* ([arxiv](https://arxiv.org/abs/2402.16763)) by Kristin Völk, Laura Kriener, Ben von Hünerbein, Federico Benitez, Walter Senn and Mihai A. Petrovici.
 
 This code base was originally developed by Kristin Völk and then extended and adapted by the other authors.
@@ -58,7 +55,7 @@ After successful compilation the experiment can then be run with e.g.
 bin/single_run
 ```
 
-This should run within 10-30min on a desktop pc with a gpu, depending on the
+This should run within 15-30min on a desktop pc with a gpu, depending on the
 hardware available. (Note that if the full network is recorded, due to increased file-IO this might slow down
 significantly).
 
@@ -84,6 +81,8 @@ Additionally, the code saves e.g. the performace data for further analysis.
 On a typical desktop pc this should run in less than a minute.
 
 ### Model/experiment workflow
+
+**Work in progress, rest of makefiles and extended description will be fully uploaded in the coming days**
 
 ### Paper results
 
