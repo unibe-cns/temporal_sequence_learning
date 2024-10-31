@@ -29,7 +29,7 @@ SingleRun:
 	cp src/mainCuda.h $(PREFIX)
 	cp target_patterns/$(TARGET_FILE) $(PREFIX)
 	printf "TC:$(TC) RC:$(RC) VIS:$(VIS) HID:$(HID) ETAV:$(ETAV) ETAH:$(ETAH) TB:$(TB) Seed:$(SEED_MAKE) RecHid:$(PLOT_CMPLT_NET) P:$(P) Q:$(Q)  Mode:"$(RUN_MODE)" \nW_INIT_VAR_V_TO_H:$(VAR_V_TO_H) W_INIT_VAR_H_TO_H=$(VAR_H_TO_H) W_INIT_MEAN_V_TO_H=$(MEAN_V_TO_H) W_INIT_MEAN_H_TO_H=$(MEAN_H_TO_H) \nMESSAGE: "$(MES)"" >  $(PREFIX)/README
-	nvcc -arch sm_60 -g -ccbin /usr/bin/g++-11 \
+	nvcc -arch sm_60 -g \
 	-lgsl -lgslcblas -lm src/mainCuda.cu src/setupCuda.cu src/simCuda.cu \
 	-D MODE=\"$(RUN_MODE)\" \
 	-D SEED_MAKE=$(SEED_MAKE) \
