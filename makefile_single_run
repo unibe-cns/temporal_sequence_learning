@@ -1,0 +1,59 @@
+SUFFIX_1 = SingleRun
+SUFFIX_2 := $(shell date +'_%Y_%m_%d_%H_%M_%S')
+PREFIX := experiment_data/$(SUFFIX_1)$(SUFFIX_2)
+
+TC = 10000      # number of training cycles
+RC = 100        # number of replay cycles at the final replay at the end
+VIS = 13        # number of visible neurons
+HID = 50        # number of hidden neurons
+ETAV = 0.0001
+ETAH = 0.001
+TB = 2500       # 
+PF = 20         # plot_frequency, i.e. after how many training cycles a replay test is made (and later plotted in results)
+PLOT_UM = 1     # record matching potentials Um
+PLOT_RU = 1     # record rates, PLOT_CMPLT_NET determines if vis or vis+hid is recorded
+SEED_MAKE = 12345    # seed
+PLOT_CMPLT_NET = 0      # record only vis or vis+hid
+
+P = 0.2
+Q = 0.15
+
+RUN_MODE = 'with dendrite'
+TARGET_FILE = fuer_elise.txt
+
+MES = 'Single run fuer Elise'
+
+SingleRun:
+	mkdir $(PREFIX)
+	cp makefile_single_run $(PREFIX)
+	cp src/mainCuda.h $(PREFIX)
+	cp target_patterns/$(TARGET_FILE) $(PREFIX)
+	printf "TC:$(TC) RC:$(RC) VIS:$(VIS) HID:$(HID) ETAV:$(ETAV) ETAH:$(ETAH) TB:$(TB) Seed:$(SEED_MAKE) RecHid:$(PLOT_CMPLT_NET) P:$(P) Q:$(Q)  Mode:"$(RUN_MODE)" \nW_INIT_VAR_V_TO_H:$(VAR_V_TO_H) W_INIT_VAR_H_TO_H=$(VAR_H_TO_H) W_INIT_MEAN_V_TO_H=$(MEAN_V_TO_H) W_INIT_MEAN_H_TO_H=$(MEAN_H_TO_H) \nMESSAGE: "$(MES)"" >  $(PREFIX)/README
+	nvcc -arch sm_60 -g -ccbin /usr/bin/g++-11 \
+	-lgsl -lgslcblas -lm src/mainCuda.cu src/setupCuda.cu src/simCuda.cu \
+	-D MODE=\"$(RUN_MODE)\" \
+	-D SEED_MAKE=$(SEED_MAKE) \
+	-D CONNECT=\"'all-to-all'\" \
+	-D P1=$(P) \
+	-D Q1=$(Q) \
+	-D Vis=$(VIS) \
+	-D Hid=$(HID) \
+	-D WriteNudge=1 \
+	-D TRAININGCYCLES=$(TC) \
+	-D REPLAYCYCLES=$(RC) \
+	-D ETAV=$(ETAV) \
+	-D ETAH=$(ETAH) \
+	-D PlotFreq=$(PF) \
+	-D PlotRU=$(PLOT_RU) \
+	-D PlotUM=$(PLOT_UM) \
+	-D PLOT_CMPLT_NET=$(PLOT_CMPLT_NET) \
+	-D FILENAME_PATTERN=\"$(PREFIX)/$(TARGET_FILE)\" \
+	-D FILENAME_RATEU=\"$(PREFIX)/ratesU.dat\" \
+	-D FILENAME_UM=\"$(PREFIX)/Um.dat\" \
+	-D FILENAME_W=\"$(PREFIX)/weights.dat\" \
+	-D FILENAME_W_pre=\"$(PREFIX)/pre_train_weights.dat\" \
+	-D FILENAME_N=\"$(PREFIX)/nudge.dat\" \
+	-D FILENAME_NOUT=\"$(PREFIX)/nOut.dat\" \
+	-D FILENAME_NIN=\"$(PREFIX)/nIn.dat\" \
+	-D FILE_NETSTRUCTURE=\"$(PREFIX)/NetStructure.dat\" \
+	-o bin/single_run
